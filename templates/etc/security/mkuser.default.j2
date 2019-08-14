@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+{# we set a __tab variable so that we dont eat whitespace indents, and it makes our jinja logic 'neater' -#}
+{% set __tab = '        ' -%}
+{% for item in etc_security_mkuserdefault -%}
+{{   item }}:
+{%   for key in etc_security_mkuserdefault[item] -%}
+{{     __tab }}{{ key}}: {{ etc_security_mkuserdefault[item][key]}}
+{%   endfor %}
+{% endfor %}

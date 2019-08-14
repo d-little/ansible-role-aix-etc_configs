@@ -1,0 +1,18 @@
+---
+- name: Change default directory for templates if aixetc_dir is set
+  block:
+    - name: Load dir stats
+      stat:
+        path: "{{ aixetc_dir }}"
+      register: p
+      failed_when: p.stat.isdir is not defined or not p.stat.isdir
+    - name: Create required sub-directoires
+      file: 
+        state: directory
+        path: "{{ aixetc_dir + item }}"
+      loop: 
+        - "/etc"
+        - "/etc/mail"
+        - "/etc/security"
+        - "/etc/ssh"
+  when: aixetc_dir is defined

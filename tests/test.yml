@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  become: true
+  vars_files:
+    - test_vars.yml
+  tasks:
+    - import_role:
+        name: aix-etc_configs

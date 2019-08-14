@@ -1,0 +1,118 @@
+########### Tests
+
+aixetc_dir: ./example_templates
+
+etc_ntpconf:
+  server: ntp.internal.domain
+etc_environment:
+  TZ: Australia/Perth
+etc_security_logincfg:
+  usw:
+    shells: /opt/freeware/bin/bash,/bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,/bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,/usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,/usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd
+etc_resolvconf:
+  nameservers:
+    - 10.999.16.3
+    - 10.999.16.10
+  domain: internal.domain
+  search: internal.domain
+etc_mail_aliases:
+  root: admins@domain.com
+  sysadm: admins@domain.com
+etc_mail_sendmailcf:
+  relays:
+    - smtp-relay.internal.domain
+
+# Testing `aixetc_managed_files` below, uncomment to disable a specific file.
+#aixetc_managed_files:
+#  etc_environment: false
+#  etc_motd: false
+#  etc_ntpconf: false
+#  etc_profile: false
+#  etc_resolvconf: false
+#  etc_syslogconf: false
+#  etc_mail_aliases: false
+#  etc_mail_sendmailcf: false
+#  etc_security_logincfg: false
+#  etc_security_mkuserdefault: false
+#  etc_ssh_ssh_banner: false
+
+__aixetc_managed_files:
+  etc_environment:
+    enabled: true
+    src: templates/etc/environment.j2
+    dest: /etc/environment
+    owner: root
+    group: root
+    mode: '0775'
+  etc_motd:
+    enabled: true
+    src: templates/etc/motd.j2
+    dest: /etc/motd
+    owner: bin
+    group: bin
+    mode: '0775'
+  etc_ntpconf:
+    enabled: true
+    src: templates/etc/ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: '0775'
+  etc_profile:
+    enabled: true
+    src: templates/etc/profile.j2
+    dest: /etc/profile
+    owner: root
+    group: root
+    mode: '0755'
+  etc_resolvconf:
+    enabled: true
+    src: templates/etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '0775'
+  etc_syslogconf:
+    enabled: true
+    src: templates/etc/syslog.conf.j2
+    dest: /etc/syslog.conf
+    owner: root
+    group: root
+    mode: '0775'
+  etc_mail_aliases:
+    enabled: true
+    src: templates/etc/mail/aliases.j2
+    dest: /etc/mail/aliases
+    owner: root
+    group: root
+    mode: '0775'
+  etc_mail_sendmailcf:
+    enabled: true
+    src: templates/etc/mail/sendmail.cf.j2
+    dest: /etc/mail/sendmail.cf
+    owner: root
+    group: root
+    mode: '0775'
+  etc_security_logincfg:
+    enabled: true
+    src: templates/etc/security/login.cfg.j2
+    dest: /etc/security/login.cfg
+    owner: root
+    group: root
+    mode: '0775'
+  etc_security_mkuserdefault:
+    enabled: true
+    src: templates/etc/security/mkuser.default.j2
+    dest: /etc/security/mkuser.default
+    owner: root
+    group: root
+    mode: '0775'
+  etc_ssh_ssh_banner:
+    enabled: true
+    src: templates/etc/ssh/ssh_banner.j2
+    dest: /etc/ssh/ssh_banner
+    owner: root
+    group: root
+    mode: '0775'
+
+###################

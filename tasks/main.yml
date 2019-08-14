@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-manage-aix-lvm
+- import_tasks: aixetc.yml
+  when: aixetc_enable | bool
+
+- name: Register that this role has run
+  set_fact:
+    aix_etc_templates_has_run: true
+  when: aix_etc_templates_has_run is not defined

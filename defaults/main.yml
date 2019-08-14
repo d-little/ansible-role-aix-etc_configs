@@ -1,0 +1,298 @@
+---
+# defaults/main.yml file for ansible-manage-lvm.  
+# Please do not change these values, use your local environment variables files instead
+
+### USER OPTIONS
+# Set to False to disable this role completely
+aixetc_enable: true
+
+# If below is set to true, don't apply role defaults
+aixetc_skip_defaults: false
+
+# If the below is true, role will reload daemons on config file change
+aixetc_manage_services: true
+
+# If the below is true, create a backup of the config file when the template is copied
+aixetc_backup: true
+
+# If the below is defined and a directory, the configuration files will be sent created in the given directory instead of the standard location
+aixetc_dir: '/tmp/roletest'
+
+# If below os true, use default settings for syslog.conf.  Otherwise overwrite default values.
+aixetc_syslogconf_defaults: true
+
+# If below is true, disable remote logging for syslogd
+aixetc_syslogd_disable_remote_logging: true
+
+### VARS DEFAULTS
+### The following are defaults for OS specific configuration in var files in
+### this role. They should not be set directly by role users. If you really
+### need to override them, use the corresponding, unprefixed variables (eg
+### `aixetc_packages` to override __aixetc_packages).
+
+# enable / disable template management for specific files:
+# aixetc_managed_files:
+#   etc_environment: false
+#   etc_motd: False
+#   etc_ntpconf: false
+
+# __aixetc_managed_files:
+#   etc_environment: true
+#   etc_motd: true
+#   etc_ntpconf: true
+#   etc_profile: true
+#   etc_resolvconf: true
+#   etc_syslogconf: true
+#   etc_mail_aliases: true
+#   etc_mail_sendmailcf: true
+#   etc_security_logincfg: true
+#   etc_security_mkuserdefault: true
+#   etc_security_mkusersyscustom: true
+#   etc_ssh_ssh_banner: true
+
+__aixetc_managed_files:
+  etc_environment:
+    enabled: true
+    src: templates/etc/environment.j2
+    dest: /etc/environment
+    owner: root
+    group: system
+    mode: '0664'
+    handler: Restart xntpd
+  etc_motd:
+    enabled: true
+    src: templates/etc/motd.j2
+    dest: /etc/motd
+    owner: bin
+    group: bin
+    mode: '0444'
+  etc_ntpconf:
+    enabled: true
+    src: templates/etc/ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: system
+    mode: '0664'
+  etc_profile:
+    enabled: true
+    src: templates/etc/profile.j2
+    dest: /etc/profile
+    owner: bin
+    group: bin
+    mode: '0755'
+  etc_resolvconf:
+    enabled: true
+    src: templates/etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: system
+    mode: 0644
+  etc_syslogconf:
+    enabled: true
+    src: templates/etc/syslog.conf.j2
+    dest: /etc/syslog.conf
+    owner: root
+    group: system
+    mode: 0644
+    handler: Restart syslogd
+  etc_mail_aliases:
+    enabled: true
+    src: templates/etc/mail/aliases.j2
+    dest: /etc/mail/aliases
+    owner: root
+    group: system
+    mode: 644
+    handler: Restart sendmail
+  etc_mail_sendmailcf:
+    enabled: true
+    src: templates/etc/mail/sendmail.cf.j2
+    dest: /etc/mail/sendmail.cf
+    owner: root
+    group: system
+    mode: '644'
+    handler: Restart sendmail
+  etc_security_logincfg:
+    enabled: true
+    src: templates/etc/security/login.cfg.j2
+    dest: /etc/security/login.cfg
+    owner: root
+    group: security
+    mode: 0640
+  etc_security_mkuserdefault:
+    enabled: true
+    src: templates/etc/security/mkuser.default.j2
+    dest: /etc/security/mkuser.default
+    owner: root
+    group: security
+    mode: 640
+  etc_ssh_ssh_banner:
+    enabled: true
+    src: templates/etc/ssh/ssh_banner.j2
+    dest: /etc/ssh/ssh_banner
+    owner: root
+    group: system
+    mode: 644
+
+__etc_handler:
+  etc_environment: false
+  etc_motd: false
+  etc_ntpconf: false
+  etc_profile: false
+  etc_resolvconf: false
+  etc_syslogconf: false
+  etc_mail_aliases: false
+  etc_mail_sendmailcf: false
+  etc_security_logincfg: false
+  etc_security_mkuserdefault: false
+  etc_security_mkusersyscustom: false
+  etc_ssh_ssh_banner: false
+
+
+__etc_environment:
+  PATH: /usr/bin:/etc:/usr/sbin:/usr/ucb:/usr/bin/X11:/sbin:/usr/java7_64/jre/bin:/usr/java7_64/bin
+  TZ: Etc/UTC
+  LANG: C
+  LOCPATH: /usr/lib/nls/loc
+  NLSPATH: /usr/lib/nls/msg/%L/%N:/usr/lib/nls/msg/%L/%N.cat:/usr/lib/nls/msg/%l.%c/%N:/usr/lib/nls/msg/%l.%c/%N.cat
+  LC__FASTMSG: true
+  ODMDIR: /etc/objrepos
+  CLCMD_PASSTHRU: 1
+  EXTENDED_HISTORY: ON
+
+__etc_motd:
+  message: "
+*******************************************************************************\n
+                           Important Notice!\n
+*******************************************************************************\n
+\n
+This system and all information contained herein is company property and access\n
+is granted for authorised users only.\n
+\n
+Use of this system constitutes your acceptance that use is subject to company\n
+security policies and standards, and any violation that breaches these\n
+provisions may result in disciplinary action.\n
+\n
+All users of this system are expected to have read applicable company policies\n
+before making use of this system.\n
+\n
+Use of this system may be subject to monitoring.  Log off immediately if you do\n
+not agree to these terms.\n
+\n
+*******************************************************************************"
+
+__etc_ntpconf:
+  server: false
+  broadcastclient: true
+  slewalways: true
+  driftfile: "/etc/ntp.drift"
+  tracefile: "/etc/ntp.trace"
+  logfile: "/etc/ntp.log"
+
+__etc_profile:
+  file: defaults/default_profile
+
+# https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/filesreference/resolv.conf.html?origURL=ssw_aix_72/com.ibm.aix.files/resolv.conf.htm
+__etc_resolvconf: 
+  nameservers: []
+  domain:
+  search:
+  options_timeout: 1
+  options_attempts: 1
+
+__etc_syslogconf:
+  /var/log/aso/aso.log:
+    msg_src: aso.notice
+    rotation: rotate size 1m files 8 compress
+  /var/log/aso/aso_process.log:
+    msg_src: aso.info
+    rotation: rotate size 1m files 8 compress
+  /var/log/aso/aso_debug.log:
+    msg_src: aso.debug
+    rotation: rotate size 32m files 8 compress
+  /var/adm/ras/syslog.caa:
+    msg_src: caa.debug
+    rotation: rotate size 10m files 10 compress
+  /var/log/syslog:
+    msg_src: daemon,syslog.info;user,mail.notice;kern.warn
+    rotation: rotate time 1m files 12 compress
+  /var/log/auth.log:
+    msg_src: auth.info
+    rotation: rotate time 1m files 12 compress
+  /var/log/sudo.log:
+    msg_src: local2.notice
+    rotation: rotate time 1m files 12 compress
+  /var/log/errpt.log:
+    msg_src: local3.notice
+    rotation: rotate time 1m files 12 compress
+
+__old_etc_syslogconf:
+  aso.notice:
+    file: /var/log/aso/aso.log
+    opts: rotate size 1m files 8 compress
+  aso.info:
+    file: /var/log/aso/aso_process.log 
+    opts: rotate size 1m files 8 compress
+  aso.debug:
+    file: /var/log/aso/aso_debug.log
+    opts: rotate size 32m files 8 compress
+  caa.debug:
+    file: /var/adm/ras/syslog.caa
+    opts: rotate size 10m files 10 compress
+  daemon,syslog.info;user,mail.notice;kern.warn:
+    file: /var/log/syslog
+    opts: rotate time 1m files 12 compress
+  auth.info:
+    file: /var/log/auth.log
+    opts: rotate time 1m files 12 compress
+  local2.notice:
+    file: /var/log/sudo.log
+    opts: rotate time 1m files 12 compress
+  local3.notice:
+    file: /var/log/errpt.log
+    opts: rotate time 1m files 12 compress
+
+__etc_mail_aliases:
+  MAILER-DAEMON: root
+  postmaster: root
+  nobody: /dev/null
+
+__etc_security_logincfg:
+  default:
+    herald: "\"Unauthorized use of this system is prohibited.\\n\\rlogin: \""
+    logindelay: 0
+    logindisable: 0
+    logininterval: 0
+    loginreenable: 0
+    logintimes: \"\"
+    pwdprompt: 
+    sak_enabled: false
+    synonym: 
+    usernameecho:
+  usw:
+    shells: /bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,/bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,/usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,/usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd
+    maxlogins: 32767
+    logintimeout: 60
+    auth_type: STD_AUTH
+    maxroles: 8
+    pwd_algorithm: ssha512
+    mkhomeatlogin: False
+    authcontroldomain: files
+    unix_passwd_compat: False
+    sulogfulldate: True
+    efssharedkeys: False
+    domainlessgroups: False
+
+__etc_security_mkuserdefault:
+  user:
+    pgrp: staff
+    groups: staff
+    shell: /usr/bin/ksh93
+    home: /home/$USER
+  admin:
+    pgrp: system
+    groups: system
+    shell: /usr/bin/ksh93
+    home: /home/$USER
+
+__etc_ssh_ssh_banner:
+  msg: Unauthorized use of this system is prohibited.

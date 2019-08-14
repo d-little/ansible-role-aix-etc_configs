@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+{% if etc_ntpconf.server == false -%}
+#server not-defined
+{% else -%}
+server {{ etc_ntpconf.server }}
+{% endif %}
+driftfile {{ etc_ntpconf.driftfile }}
+tracefile {{ etc_ntpconf.tracefile }}
+logfile {{ etc_ntpconf.logfile }}
+{% if etc_ntpconf.broadcastclient != true %}#{% endif %}broadcastclient
+{% if etc_ntpconf.slewalways != true %}#{% endif %}slewalways yes

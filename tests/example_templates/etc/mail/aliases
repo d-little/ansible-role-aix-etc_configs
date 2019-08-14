@@ -1,0 +1,7 @@
+# This file is managed by ansible - local changes will be lost! - Last Updated 2019/08/12 - 16:31:00 -0500(CDT)
+
+MAILER-DAEMON:root
+postmaster:root
+nobody:/dev/null
+root:admins@domain.com
+sysadm:admins@domain.com

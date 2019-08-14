@@ -1,0 +1,12 @@
+# This file is managed by ansible - local changes will be lost! - Last Updated 2019/08/14 - 10:22:35 -0500(CDT)
+
+user:
+        pgrp: staff
+        groups: staff
+        shell: /usr/bin/ksh93
+        home: /home/$USER
+admin:
+        pgrp: system
+        groups: system
+        shell: /usr/bin/ksh93
+        home: /home/$USER

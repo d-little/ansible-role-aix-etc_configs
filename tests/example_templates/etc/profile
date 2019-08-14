@@ -1,0 +1,59 @@
+# This file is managed by ansible - local changes will be lost! - Last Updated 2019/08/12 - 17:19:03 -0500(CDT)
+
+# System wide profile.  All variables set here may be overridden by
+# a user's personal .profile file in their $HOME directory.  However,
+# all commands here will be executed at login regardless.
+
+trap "" 1 2 3
+readonly LOGNAME
+
+# Automatic logout, include in export line if uncommented
+TMOUT=900
+
+# The MAILMSG will be printed by the shell every MAILCHECK seconds
+# (default 600) if there is mail in the MAIL system mailbox.
+MAIL=/usr/spool/mail/$LOGNAME
+MAILMSG="[YOU HAVE NEW MAIL]"
+
+# If termdef command returns terminal type (i.e. a non NULL value),
+# set TERM to the returned value, else set TERM to default lft.
+TERM_DEFAULT=lft
+TERM=`termdef`
+TERM=${TERM:-$TERM_DEFAULT}
+
+# If LC_MESSAGES is set to "C@lft" and TERM is not set to "lft",
+# unset LC_MESSAGES.
+if [ "$LC_MESSAGES" = "C@lft" -a "$TERM" != "lft" ]
+then
+    unset LC_MESSAGES
+fi
+
+export LOGNAME TMOUT MAIL MAILMSG TERM
+
+alias manf="man -m -M/opt/freeware/man:/opt/freeware/share/man"
+set -o vi
+
+
+#
+# Additional modifications which should be updated
+#
+
+function checkmail {
+    if [ -s "$MAIL" ] ; then   # This is at Shell startup. In normal
+        echo "$MAILMSG"          # operation, the Shell checks
+    fi                         # periodically.
+}
+
+case $LOGIN in
+    root)
+        export PS1='${USER}@'"$(hostname -s)":'${PWD} # '
+        export PATH=${PATH}:/usr/local/sbin
+        checkmail
+    ;;
+    *)
+        export PS1='${USER}@'"$(hostname -s)":'${PWD} $ '
+        checkmail
+    ;;
+esac
+
+trap 1 2 3

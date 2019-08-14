@@ -1,0 +1,9 @@
+---
+
+- import_tasks: variables.yml
+
+- import_tasks: templates_pre.yml
+
+- import_tasks: templates.yml
+
+- import_tasks: templates_post.yml

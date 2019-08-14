@@ -1,0 +1,11 @@
+# This file is managed by ansible - local changes will be lost! - Last Updated 2019/08/09 - 15:03:34 -0500(CDT)
+
+PATH=/usr/bin:/etc:/usr/sbin:/usr/ucb:/usr/bin/X11:/sbin:/usr/java7_64/jre/bin:/usr/java7_64/bin
+TZ=Australia/Perth
+LANG=C
+LOCPATH=/usr/lib/nls/loc
+NLSPATH=/usr/lib/nls/msg/%L/%N:/usr/lib/nls/msg/%L/%N.cat:/usr/lib/nls/msg/%l.%c/%N:/usr/lib/nls/msg/%l.%c/%N.cat
+LC__FASTMSG=True
+ODMDIR=/etc/objrepos
+CLCMD_PASSTHRU=1
+EXTENDED_HISTORY=True

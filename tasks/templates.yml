@@ -1,0 +1,24 @@
+---
+#### /etc/ ####
+
+# Do everything!
+- name: DEBUG-Loaded Template Settings and Template Variables
+  debug:
+    msg: |
+      Template: {{ item }}
+      Template Settings: {{ aixetc_managed_files[item] | to_nice_yaml }}
+      Variables: {{ lookup('vars', item) | to_nice_yaml }}
+    verbosity: 2
+  loop: "{{ aixetc_file_list }}"
+
+- name: Deploy All Templates
+  template:
+    src: "{{ aixetc_managed_files[item].src }}"
+    dest: "{{ aixetc_dir + '/'|default('') }}{{ aixetc_managed_files[item].dest }}"
+    owner: "{{ aixetc_managed_files[item].owner }}"
+    group: "{{ aixetc_managed_files[item].group }}"
+    mode: "{{ aixetc_managed_files[item].mode }}"
+    backup: "{{ aixetc_managed_files[item].backup | default(aixetc_backup|bool) }}"
+  notify: "{{ aixetc_managed_files[item].handler | default(omit) }}"
+  loop: "{{ aixetc_file_list }}"
+
