@@ -1,5 +1,5 @@
 # {{ ansible_managed }}
 
 {% for item in etc_syslogconf -%}
-{{ item }} {{ etc_syslogconf[item].msg_src }} {{ etc_syslogconf[item].rotation }}
+{{ etc_syslogconf[item].msg_src }} {{ item }} {{ etc_syslogconf[item].rotation }}
 {% endfor %}
