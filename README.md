@@ -224,7 +224,7 @@ tbd
   - The file will be created if it does not exist using `root:system/640` permissions
   - If the file does not have `root:system/640` permissions they will be set.
 - Each dict has two attributes, `msg_src` and `rotation`.
-  - `msg_src` contains either a string to be directly translated and used for the msg_src
+  - `msg_src` contains either a string or a list to be directly translated and used for the msg_src
   - `rotation` is the rotation pattern to use.
   - See [IBM's documentation](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/filesreference/syslog.conf.html?origURL=ssw_aix_72/com.ibm.aix.files/syslog.conf.htm) for more information
 
@@ -247,7 +247,10 @@ etc_syslogconf:
     msg_src: caa.debug
     rotation: rotate size 10m files 10 compress
   /var/log/syslog:
-    msg_src: daemon,syslog.info;user,mail.notice;kern.warn
+    msg_src:
+      - daemon,syslog.info
+      - user,mail.notice
+      - kern.warn
     rotation: rotate time 1m files 12 compress
   /var/log/auth.log:
     msg_src: auth.info
