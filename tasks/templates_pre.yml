@@ -5,7 +5,13 @@
       stat:
         path: "{{ aixetc_dir }}"
       register: p
-      failed_when: p.stat.isdir is not defined or not p.stat.isdir
+      failed_when: 
+        - p.stat.exists
+        - not p.stat.isdir
+    - name: Create directory if not existing
+      file: path="{{ aixetc_dir }}" state=directory
+      when: not p.stat.exists
+
     - name: Create required sub-directoires
       file:
         state: directory
