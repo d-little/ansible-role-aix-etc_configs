@@ -21,4 +21,3 @@
     backup: "{{ aixetc_managed_files[item].backup | default(aixetc_backup|bool) }}"
   notify: "{{ aixetc_managed_files[item].handler | default(omit) }}"
   loop: "{{ aixetc_file_list }}"
-

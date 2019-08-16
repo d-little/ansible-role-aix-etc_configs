@@ -3,14 +3,13 @@
   set_fact:
     aixetc_managed_files: >
       {{
-          __aixetc_managed_files| 
-          deep_combine( aixetc_managed_files| default({}, true) )  
+          __aixetc_managed_files | deep_combine( aixetc_managed_files| default({}, true) )
       }}
 
 - name: Create a list of enabled-only templates
   set_fact:
-    aixetc_file_list: "{{ aixetc_file_list|default([]) + [ item.key ] }}" 
-  when: 
+    aixetc_file_list: "{{ aixetc_file_list|default([]) + [ item.key ] }}"
+  when:
     - item.value.enabled is defined
     - item.value.enabled
   with_dict: "{{ aixetc_managed_files }}"
@@ -19,11 +18,13 @@
   set_fact:
     "{{ item }}": "{{ lookup('vars', '__' + item, default={}) | deep_combine(lookup('vars', item, default={})) }}"
     # The above line looks very complicated, but it's not too bad.
-    #  We're simply merging every user-defined variable on top of the role module_defaults
-    #  The custom filter 'deep_combine' does this work for us.  It does not remove existing variables, and is recursive through a whole dict object.
-    #  For example, deep merging the following dicts: 
-    #   { k1: { k11: v11, k12: v12  }, k2: v2, k3: v3 }
-    #   { k1: { k12: bar}, k3: { k31: v31, k32: v32}, k4: k4 }
+    #  We're simply merging every user-defined variable on top of the role
+    #   module_defaults
+    #  The custom filter 'deep_combine' does this work for us.  It does not
+    #   remove existing variables, and is recursive through a whole dict object.
+    #  For example, deep merging the following dicts:
+    #   { k1:{ k11: v11, k12: v12  }, k2: v2, k3: v3 }
+    #   { k1:{ k12: bar}, k3:{ k31: v31, k32: v32}, k4: k4 }
     #  would result in:
-    #   { k1: { k11: v11, k12: bar  }, k2: v2, k3: { k31: v31, k32: v32}, k4: k4 }
+    #   { k1:{ k11: v11, k12: bar  }, k2: v2, k3:{ k31: v31, k32: v32}, k4: k4 }
   loop: "{{ aixetc_file_list }}"
