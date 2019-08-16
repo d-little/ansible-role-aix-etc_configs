@@ -27,8 +27,7 @@
         mode: 0640
         state: touch
       with_items: >-
-        "{{ file_stats | json_query(
-          'results[?stat.exists != `true` ||
+        "{{ file_stats | json_query('results[?stat.exists != `true` ||
           stat.uid != `0` ||
           stat.gr_name != `system` ||
           stat.mode != `0640`].item.key') }}"
