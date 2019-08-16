@@ -160,25 +160,25 @@ __etc_environment:
   EXTENDED_HISTORY: ON
 
 __etc_motd:
-  message: "
-*******************************************************************************\n
-                           Important Notice!\n
-*******************************************************************************\n
-\n
-This system and all information contained herein is company property and access\n
-is granted for authorised users only.\n
-\n
-Use of this system constitutes your acceptance that use is subject to company\n
-security policies and standards, and any violation that breaches these\n
-provisions may result in disciplinary action.\n
-\n
-All users of this system are expected to have read applicable company policies\n
-before making use of this system.\n
-\n
-Use of this system may be subject to monitoring.  Log off immediately if you do\n
-not agree to these terms.\n
-\n
-*******************************************************************************"
+  message: |
+    *******************************************************************************
+                              Important Notice!
+    *******************************************************************************
+    
+    This system and all information contained herein is company property and access
+    is granted for authorised users only.
+    
+    Use of this system constitutes your acceptance that use is subject to company
+    security policies and standards, and any violation that breaches these
+    provisions may result in disciplinary action.
+    
+    All users of this system are expected to have read applicable company policies
+    before making use of this system.
+    
+    Use of this system may be subject to monitoring.  Log off immediately if you do
+    not agree to these terms.
+    
+    *******************************************************************************
 
 __etc_ntpconf:
   server: false
