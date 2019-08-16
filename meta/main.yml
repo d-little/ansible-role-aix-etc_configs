@@ -5,11 +5,11 @@ galaxy_info:
   description: Role to manage AIX configuration files that live in /etc/
   license: MIT
   min_ansible_version: 2.8
-  # platforms:
-  #   - name: AIX
-  #     versions:
-  #       - 7.1
-  #       - 7.2
+  platforms:
+    - name: AIX
+      # versions:
+      #   - 7.1
+      #   - 7.2
   galaxy_tags:
     - system
     - aix

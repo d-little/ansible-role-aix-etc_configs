@@ -4,7 +4,7 @@
     state: link
     src: /etc/mail/aliases
     dest: /etc/aliases
-  when: 
+  when:
     - aixetc_managed_files.etc_mail_aliases is defined
     - aixetc_managed_files.etc_mail_aliases
 
@@ -14,7 +14,7 @@
     # This is annoyingly the best way to make this idempotent and only report on CHANGE..
     - name: Check status of syslog.conf log files
       stat: path={{ item.key }}
-      register: file_stats 
+      register: file_stats
       with_items: "{{ etc_syslogconf | dict2items }}"
     # - debug:
     #     msg: "{{ file_stats | to_nice_json }}"
@@ -26,7 +26,12 @@
         group: system
         mode: 0640
         state: touch
-      with_items: "{{ file_stats | json_query('results[?stat.exists != `true` || stat.uid != `0` || stat.gr_name != `system` || stat.mode != `0640`].item.key') }}"
+      with_items: >-
+        "{{ file_stats | json_query(
+          'results[?stat.exists != `true` ||
+          stat.uid != `0` ||
+          stat.gr_name != `system` ||
+          stat.mode != `0640`].item.key') }}"
       notify: Restart syslogd
     - name: Disable remote logging for syslogd
       shell: >
@@ -35,6 +40,6 @@
       register: syslogd_remote
       changed_when: syslogd_remote.stdout == '0513-077 Subsystem has been changed.'
       notify: Restart syslogd
-  when: 
+  when:
     - aixetc_managed_files.etc_syslogconf is defined
     - aixetc_managed_files.etc_syslogconf

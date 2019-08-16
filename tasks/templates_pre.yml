@@ -7,10 +7,10 @@
       register: p
       failed_when: p.stat.isdir is not defined or not p.stat.isdir
     - name: Create required sub-directoires
-      file: 
+      file:
         state: directory
         path: "{{ aixetc_dir + item }}"
-      loop: 
+      loop:
         - "/etc"
         - "/etc/mail"
         - "/etc/security"
