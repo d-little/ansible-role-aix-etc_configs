@@ -164,20 +164,20 @@ __etc_motd:
     *******************************************************************************
                               Important Notice!
     *******************************************************************************
-    
+
     This system and all information contained herein is company property and access
     is granted for authorised users only.
-    
+
     Use of this system constitutes your acceptance that use is subject to company
     security policies and standards, and any violation that breaches these
     provisions may result in disciplinary action.
-    
+
     All users of this system are expected to have read applicable company policies
     before making use of this system.
-    
+
     Use of this system may be subject to monitoring.  Log off immediately if you do
     not agree to these terms.
-    
+
     *******************************************************************************
 
 __etc_ntpconf:

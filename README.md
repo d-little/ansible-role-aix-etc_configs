@@ -75,6 +75,33 @@ etc_environment:
   EXTENDED_HISTORY: ON
 ```
 
+#### /etc/motd
+
+Default:
+
+```yaml
+etc_motd:
+  message: |
+    *******************************************************************************
+                              Important Notice!
+    *******************************************************************************
+
+    This system and all information contained herein is company property and access
+    is granted for authorised users only.
+
+    Use of this system constitutes your acceptance that use is subject to company
+    security policies and standards, and any violation that breaches these
+    provisions may result in disciplinary action.
+
+    All users of this system are expected to have read applicable company policies
+    before making use of this system.
+
+    Use of this system may be subject to monitoring.  Log off immediately if you do
+    not agree to these terms.
+
+    *******************************************************************************
+```
+
 #### /etc/ntp.conf
 
 If any variable is equal to `false` the template will include the key name but will comment out the line.  eg: `server: false` will be entered into the file as `#server`.
