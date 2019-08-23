@@ -16,7 +16,7 @@ aixetc_manage_services: true
 aixetc_backup: true
 
 # If the below is defined and a directory, the configuration files will be sent created in the given directory instead of the standard location
-aixetc_dir: '/tmp/roletest'
+#aixetc_dir: '/tmp'
 
 # If below os true, use default settings for syslog.conf.  Otherwise overwrite default values.
 aixetc_syslogconf_defaults: true
@@ -137,7 +137,6 @@ __etc_handler:
   etc_security_mkuserdefault: false
   etc_security_mkusersyscustom: false
   etc_ssh_ssh_banner: false
-
 
 __etc_environment:
   PATH: /usr/bin:/etc:/usr/sbin:/usr/ucb:/usr/bin/X11:/sbin:/usr/java7_64/jre/bin:/usr/java7_64/bin
