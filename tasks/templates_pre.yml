@@ -5,7 +5,7 @@
       stat:
         path: "{{ aixetc_dir }}"
       register: p
-      failed_when: 
+      failed_when:
         - p.stat.exists
         - not p.stat.isdir
     - name: Create directory if not existing
