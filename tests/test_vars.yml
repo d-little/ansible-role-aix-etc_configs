@@ -7,13 +7,6 @@ etc_ntpconf:
   server: ntp.internal.domain
 etc_environment:
   TZ: Australia/Perth
-etc_security_logincfg:
-  usw:
-    shells: >-
-      /opt/freeware/bin/bash,/bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,
-      /bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,
-      /usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,
-      /usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd
 etc_resolvconf:
   nameservers:
     - 10.999.16.3
@@ -37,7 +30,6 @@ etc_mail_sendmailcf:
 #   etc_syslogconf: false
 #   etc_mail_aliases: false
 #   etc_mail_sendmailcf: false
-#   etc_security_logincfg: false
 #   etc_security_mkuserdefault: false
 #   etc_ssh_ssh_banner: false
 

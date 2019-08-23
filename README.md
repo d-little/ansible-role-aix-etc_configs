@@ -335,9 +335,6 @@ The output files of this playbook can be found in `tests/example_templates/etc/`
       server: ntp.internal.domain
     etc_environment:
       TZ: Australia/Perth
-    etc_security_logincfg:
-      usw:
-        shells: /opt/freeware/bin/bash,/bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,/bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,/usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,/usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd
     etc_resolvconf:
       nameservers:
         - 10.999.16.3

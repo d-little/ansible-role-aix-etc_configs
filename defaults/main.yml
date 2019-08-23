@@ -45,7 +45,6 @@ aixetc_syslogd_disable_remote_logging: true
 #   etc_syslogconf: true
 #   etc_mail_aliases: true
 #   etc_mail_sendmailcf: true
-#   etc_security_logincfg: true
 #   etc_security_mkuserdefault: true
 #   etc_security_mkusersyscustom: true
 #   etc_ssh_ssh_banner: true
@@ -135,7 +134,6 @@ __etc_handler:
   etc_syslogconf: false
   etc_mail_aliases: false
   etc_mail_sendmailcf: false
-  etc_security_logincfg: false
   etc_security_mkuserdefault: false
   etc_security_mkusersyscustom: false
   etc_ssh_ssh_banner: false
@@ -248,32 +246,6 @@ __etc_mail_aliases:
   MAILER-DAEMON: root
   postmaster: root
   nobody: /dev/null
-
-__etc_security_logincfg:
-  default:
-    herald: "\"Unauthorized use of this system is prohibited.\\n\\rlogin: \""
-    logindelay: 0
-    logindisable: 0
-    logininterval: 0
-    loginreenable: 0
-    logintimes: \"\"
-    pwdprompt: 
-    sak_enabled: false
-    synonym: 
-    usernameecho:
-  usw:
-    shells: /bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,/bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,/usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,/usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd
-    maxlogins: 32767
-    logintimeout: 60
-    auth_type: STD_AUTH
-    maxroles: 8
-    pwd_algorithm: ssha512
-    mkhomeatlogin: False
-    authcontroldomain: files
-    unix_passwd_compat: False
-    sulogfulldate: True
-    efssharedkeys: False
-    domainlessgroups: False
 
 __etc_security_mkuserdefault:
   user:
