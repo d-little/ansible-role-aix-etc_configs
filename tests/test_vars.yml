@@ -98,13 +98,6 @@ __aixetc_managed_files:
     owner: root
     group: root
     mode: '0775'
-  etc_security_logincfg:
-    enabled: true
-    src: templates/etc/security/login.cfg.j2
-    dest: /etc/security/login.cfg
-    owner: root
-    group: root
-    mode: '0775'
   etc_security_mkuserdefault:
     enabled: true
     src: templates/etc/security/mkuser.default.j2

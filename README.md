@@ -300,56 +300,6 @@ DSfoo.bar.mydomain # some comment
 DSbaz.bar.mydomain # another comment
 ```
 
-#### /etc/security/login.cfg
-
-NB:
-
-- All variables are marked with the Jinja filter `safe` to ensure escaping works as intended.
-- AIX omits default values but we purposefully include them.
-- Default value for password encryption is `SHA512` instead of the aix `crypt`:
-  - You'll  need to reset each password to have it updated to the new encryption method
-  - /etc/security/passwd file will tell you which passwords need updating
-    - [*Support for passwords greater than 8 characters*](https://www-01.ibm.com/support/docview.wss?uid=isg3T1010741)
-    - [*MD5 password scrambler 'no longer safe'*](https://www.zdnet.com/article/md5-password-scrambler-no-longer-safe/)
-
-Role options+defaults:
-
-```text
-default + custom ports:
-    herald = string | default(\"Unauthorized use of this system is prohibited.\\n\\rlogin: \")
-    logindelay = int | default(0)
-    logindisable = int | default(0)
-    logininterval = int | default(0)
-    loginreenable = int | default(0)
-    logintimes = string | default(\"\")
-    pwdprompt = string | default(omit)
-    sak_enabled = bool | default(false)
-    synonym = string | default(omit)
-    usernameecho = bool | default(omit)
-
-usw:
-    shells = string | default(/bin/sh,/bin/bsh,/bin/csh,/bin/ksh,/bin/tsh,/bin/ksh93,/usr/bin/sh,/usr/bin/bsh,/usr/bin/csh,/usr/bin/ksh,/usr/bin/tsh,/usr/bin/ksh93,/usr/bin/rksh,/usr/bin/rksh93,/usr/sbin/uucp/uucico,/usr/sbin/sliplogin,/usr/sbin/snappd)
-    maxlogins = int | default(32767)
-    logintimeout = int | default(60)
-    auth_type = choice('STD_AUTH','PAM_AUTH') | default('STD_AUTH')
-    maxroles = int(1<i<8) | default(8)
-    pwd_algorithm = string | default('ssha512')
-    mkhomeatlogin = bool | default(false)
-    authcontroldomain = string | default('files')
-    unix_passwd_compat = bool | default(false)
-    sulogfulldate = bool | default(true)
-    efssharedkeys  = bool | default(false)
-    domainlessgroups = bool | default(false)
-```
-
-Role Changes from AIX Defaults:
-
-The AIX default login.cfg does not include the `default` setting for `herald`.
-The following `usw` settings are changed from the AIX defaults:
-
-- `pwd_algorithm` by default is `blank`, we use `ssha512`
-- `sulogfulldate` by default is `false`, we use `true`
-
 #### /etc/security/mkuser.default
 
 Defaults:
