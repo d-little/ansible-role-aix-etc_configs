@@ -14,7 +14,7 @@
 - name: Deploy All Templates
   template:
     src: "{{ aixetc_managed_files[item].src }}"
-    dest: "{{ aixetc_dir + '/'|default('') }}{{ aixetc_managed_files[item].dest }}"
+    dest: "{{ aixetc_dir |default('') }}/{{ aixetc_managed_files[item].dest }}"
     owner: "{{ aixetc_managed_files[item].owner }}"
     group: "{{ aixetc_managed_files[item].group }}"
     mode: "{{ aixetc_managed_files[item].mode }}"
