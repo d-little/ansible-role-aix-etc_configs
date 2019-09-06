@@ -1,8 +1,10 @@
 # {{ ansible_managed }}
-{% for server in etc_resolvconf.nameservers -%}
+{% for server in etc_resolvconf.nameservers %}
 nameserver         {{ server }}
 {% endfor -%}
 domain             {{ etc_resolvconf.domain }}
+{% if etc_resolvconf.search is defined %}
 search             {{ etc_resolvconf.search }}
+{% endif %}
 options timeout:   {{ etc_resolvconf.options_timeout }}
 options attempts:  {{ etc_resolvconf.options_attempts }}
