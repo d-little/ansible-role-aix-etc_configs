@@ -65,7 +65,7 @@ Defaults:
 ```yaml
 etc_environment:
   PATH: /usr/bin:/etc:/usr/sbin:/usr/ucb:/usr/bin/X11:/sbin:/usr/java7_64/jre/bin:/usr/java7_64/bin
-  TZ: Etc/UTC
+  TZ: "{{ timezone | default('Etc/UTC') }}"
   LANG: C
   LOCPATH: /usr/lib/nls/loc
   NLSPATH: /usr/lib/nls/msg/%L/%N:/usr/lib/nls/msg/%L/%N.cat:/usr/lib/nls/msg/%l.%c/%N:/usr/lib/nls/msg/%l.%c/%N.cat
@@ -74,6 +74,8 @@ etc_environment:
   CLCMD_PASSTHRU: 1
   EXTENDED_HISTORY: ON
 ```
+
+NB: For convinience TZ will default to the global 'timezone' if you have set it elsewhere.
 
 #### /etc/motd
 
