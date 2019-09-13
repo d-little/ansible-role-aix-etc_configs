@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+127.0.0.1               loopback localhost      # loopback (lo0) name/address
+::1                     loopback localhost      # IPv6 loopback (lo0) name/address
+{{ ansible_facts.devices.en0.attributes.netaddr }}          {{ ansible_facts.fqdn }}  {{ ansible_facts.hostname }}
