@@ -44,12 +44,14 @@ function checkmail {
 
 case $LOGIN in
     root)
-        export PS1='${USER}@'"$(hostname -s)":'${PWD} # '
+        # Red username for root
+        export PS1=$(echo "\033[1;31m")'${USER}@'$(hostname -s)$(echo "\033[00m")':${PWD} # '
         export PATH=${PATH}:/usr/local/sbin
         checkmail
     ;;
     *)
-        export PS1='${USER}@'"$(hostname -s)":'${PWD} $ '
+        # Green username for everyone else
+        export PS1=$(echo "\033[1;32m")'${USER}@'$(hostname -s)$(echo "\033[00m")':${PWD} # '
         checkmail
     ;;
 esac
