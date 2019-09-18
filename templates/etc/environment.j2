@@ -1,5 +1,5 @@
 # {{ ansible_managed }}
 
 {% for item in etc_environment -%}
-{{   item }}={{etc_environment[item]}}
+{{   item }}={{ etc_environment[item] }}
 {% endfor %}
