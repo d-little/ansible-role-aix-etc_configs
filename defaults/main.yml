@@ -30,25 +30,6 @@ aixetc_syslogd_disable_remote_logging: true
 ### need to override them, use the corresponding, unprefixed variables (eg
 ### `aixetc_packages` to override __aixetc_packages).
 
-# enable / disable template management for specific files:
-# aixetc_managed_files:
-#   etc_environment: false
-#   etc_motd: False
-#   etc_ntpconf: false
-
-# __aixetc_managed_files:
-#   etc_environment: true
-#   etc_motd: true
-#   etc_ntpconf: true
-#   etc_profile: true
-#   etc_resolvconf: true
-#   etc_syslogconf: true
-#   etc_mail_aliases: true
-#   etc_mail_sendmailcf: true
-#   etc_security_mkuserdefault: true
-#   etc_security_mkusersyscustom: true
-#   etc_ssh_ssh_banner: true
-
 __aixetc_managed_files:
   etc_environment:
     enabled: true
@@ -58,6 +39,13 @@ __aixetc_managed_files:
     group: system
     mode: '0664'
     handler: Restart xntpd
+  etc_hosts:
+    enabled: true
+    src: templates/etc/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: system
+    mode: '0664'
   etc_motd:
     enabled: true
     src: templates/etc/motd.j2
@@ -127,6 +115,7 @@ __aixetc_managed_files:
 
 __etc_handler:
   etc_environment: false
+  etc_hosts: false
   etc_motd: false
   etc_ntpconf: false
   etc_profile: false

@@ -56,6 +56,62 @@ If below is defined and is a directory, the configuration files will be created 
 
 ### Template Variables and Defaults
 
+#### /etc/hosts
+
+We will always deploy the following lines at the top of the `/etc/hosts` file:
+
+```text
+127.0.0.1               loopback localhost      # loopback (lo0) name/address
+::1                     loopback localhost      # IPv6 loopback (lo0) name/address
+{{ ansible_facts.devices.en0.attributes.netaddr }}          {{ ansible_facts.fqdn }}  {{ ansible_facts.hostname }}
+```
+
+The template itself will then merge all variables that start with `etc_hosts.+` which should look like this (nb: `fqdn` and `comment` is optional)
+
+```yaml
+etc_hosts:
+- ip: <ip>
+  hostname: <hostname>
+  fqdn: <fqdn>
+  comment: <comment>
+```
+
+This will allow you to define `etc_hosts` in multiple variable files without overwriting each other.
+
+For example, you may have two datacenters (In NYC and Austin) and a dev and production environment, you could configure the vars files as such:
+
+```text
+| vars/ATX.yml |`vars/NYC.yml`|`vars/prod.yml`|`vars/dev.yml`|
+|---|---|---|---|---|
+| etc_hosts_atx:             |  etc_hosts_nyc:             | etc_hosts_prd:              | etc_hosts_dev:          |
+|   - ip: 10.0.0.10          |    - ip: 10.2.0.10          |   - ip: 10.0.0.240          |   - ip: 10.0.1.240      |
+|     hostname: atxntp       |      hostname: nycntp       |     hostname: prodsat       |     hostname: devsat    |
+|     fqdn: ntp.atx.internal |      fqdn: ntp.nyc.internal |     fqdn: sat.prod.internal |     fqdn: sat.atx.dev   |
+```
+
+This means that a server with the tags `atx` and `dev` would have the final merged `etc_hosts` list as such:
+
+```yaml
+etc_hosts:
+- ip: 10.0.0.10
+  hostname: atxntp
+  fqdn: ntp.atx.internal
+- ip: 10.0.1.240
+  hostname: devsat
+  comment: Dev satellite server
+  fqdn: satell.atx.dev
+```
+
+Which will render the final `/etc/hosts` file as:
+
+```text
+127.0.0.1               loopback localhost      # loopback (lo0) name/address
+::1                     loopback localhost      # IPv6 loopback (lo0) name/address
+<server ip>             <server_fqdn> <server_hostname>
+10.0.0/10               ntp.atx.internal atxntp
+10.0.1.240              satell.atx.dev devsat      # Dev satellite server
+```
+
 #### /etc/environment
 
 The variable `etc_environment` is a simple list of `key`:`value` pairs.  Each pair will be added to the `/etc/environment` file.  The defaults below are always applied but can be overwritten.
@@ -78,6 +134,8 @@ etc_environment:
 NB: For convinience TZ will default to the global 'timezone' if you have set it elsewhere.
 
 #### /etc/motd
+
+Will take any block of text and render it.
 
 Default:
 

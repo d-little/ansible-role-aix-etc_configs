@@ -2,4 +2,12 @@
 
 127.0.0.1               loopback localhost      # loopback (lo0) name/address
 ::1                     loopback localhost      # IPv6 loopback (lo0) name/address
-{{ ansible_facts.devices.en0.attributes.netaddr }}          {{ ansible_facts.fqdn }}  {{ ansible_facts.hostname }}
+{{ "%-23s" | format(ansible_facts.devices.en0.attributes.netaddr,) }} {{ ansible_facts.fqdn }} {{ ansible_facts.hostname }}
+
+{% for host in etc_hosts -%}
+{{     "%-24s" | format(host.ip,) -}}
+{%     if host.fqdn is defined %}{{ host.fqdn }} {% endif -%}
+{{     host.hostname -}}
+{%     if host.comment is defined %}      # {{ host.comment }}{% endif %}
+
+{% endfor %}

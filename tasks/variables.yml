@@ -28,3 +28,18 @@
     #  would result in:
     #   { k1:{ k11: v11, k12: bar  }, k2: v2, k3:{ k31: v31, k32: v32}, k4: k4 }
   loop: "{{ aixetc_file_list }}"
+
+# Sometimes jinja templating is just easier than trying to figure out how to do it in Ansible...
+- name: Union all etc_hosts* variables into one etc_hosts
+  set_fact:
+    etc_hosts: >
+      {%- set tmp_etc_hosts = [] %}
+      {%- for item in lookup('varnames', 'etc_hosts.+', wantlist=True) %}
+      {%-  if tmp_etc_hosts.append(vars[item]) %}{% endif %}
+      {%- endfor %}
+      {{- lookup('flattened', tmp_etc_hosts) }}
+
+- name: Debug- etc_hosts 
+  debug:
+    msg: etc_hosts- {{ etc_hosts }}
+    verbosity: 2
