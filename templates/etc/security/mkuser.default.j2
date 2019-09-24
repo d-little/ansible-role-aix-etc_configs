@@ -5,6 +5,7 @@
 {% for item in etc_security_mkuserdefault -%}
 {{   item }}:
 {%   for key in etc_security_mkuserdefault[item] -%}
-{{     __tab }}{{ key }}: {{ etc_security_mkuserdefault[item][key] }}
+{{     __tab }}{{ key }} = {{ etc_security_mkuserdefault[item][key] }}
 {%   endfor %}
+
 {% endfor %}
