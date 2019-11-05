@@ -73,14 +73,14 @@ __aixetc_managed_files:
     dest: /etc/resolv.conf
     owner: root
     group: system
-    mode: 0644
+    mode: '0644'
   etc_syslogconf:
     enabled: true
     src: templates/etc/syslog.conf.j2
     dest: /etc/syslog.conf
     owner: root
     group: system
-    mode: 0644
+    mode: '0644'
     handler: Restart syslogd
   etc_mail_aliases:
     enabled: true
@@ -88,7 +88,7 @@ __aixetc_managed_files:
     dest: /etc/mail/aliases
     owner: root
     group: system
-    mode: 644
+    mode: '0644'
     handler: Restart sendmail
   etc_mail_sendmailcf:
     enabled: true
@@ -96,7 +96,7 @@ __aixetc_managed_files:
     dest: /etc/mail/sendmail.cf
     owner: root
     group: system
-    mode: '644'
+    mode: '0644'
     handler: Restart sendmail
   etc_security_mkuserdefault:
     enabled: true
@@ -104,14 +104,14 @@ __aixetc_managed_files:
     dest: /etc/security/mkuser.default
     owner: root
     group: security
-    mode: 640
+    mode: '0640'
   etc_ssh_ssh_banner:
     enabled: true
     src: templates/etc/ssh/ssh_banner.j2
     dest: /etc/ssh/ssh_banner
     owner: root
     group: system
-    mode: 644
+    mode: '0644'
 
 __etc_handler:
   etc_environment: false
