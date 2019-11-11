@@ -186,11 +186,11 @@ tbd
 
 #### /etc/profile
 
-`etc_profile` has only a single attribute: `file`.  If `file` is set and is a jinja2 file it will be imported:
+`etc_profile` has only a single attribute: `file`:
 
 ```yaml
 etc_profile:
-  file: `path_to_file.j2`
+  file: `path_to_file`
 ```
 
 If the above `etc_profile.file` is not set, the following 'good practice' template will be used:
