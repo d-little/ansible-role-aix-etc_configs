@@ -56,6 +56,24 @@ If below is defined and is a directory, the configuration files will be created 
 
 ### Template Variables and Defaults
 
+#### /etc/cronlog.conf
+
+
+The template itself will then merge all variables that start with `etc_hosts.+` which should look like this (nb: `fqdn` and `comment` is optional)
+
+```yaml
+etc_hosts:
+- ip: <ip>
+  hostname: <hostname>
+  fqdn: <fqdn>
+  comment: <comment>
+```
+
+This will allow you to define `etc_hosts` in multiple variable files without overwriting each other.
+
+For example, you may have two datacenters (In NYC and Austin) and a dev and production environment, you could configure the vars files as such:
+
+
 #### /etc/hosts
 
 We will always deploy the following lines at the top of the `/etc/hosts` file:

@@ -31,6 +31,13 @@ aixetc_syslogd_disable_remote_logging: true
 ### `aixetc_packages` to override __aixetc_packages).
 
 __aixetc_managed_files:
+  etc_cronlogconf:
+    enabled: true
+    src: templates/etc/cronlog.conf.j2
+    dest: /etc/cronlog.conf
+    owner: root
+    group: system
+    mode: '0644'
   etc_environment:
     enabled: true
     src: templates/etc/environment.j2
@@ -114,6 +121,7 @@ __aixetc_managed_files:
     mode: '0644'
 
 __etc_handler:
+  etc_cronlogconf: false
   etc_environment: false
   etc_hosts: false
   etc_motd: false

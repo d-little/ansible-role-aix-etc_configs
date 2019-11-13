@@ -1,0 +1,42 @@
+# {{ ansible_managed }}
+
+### logfile
+# Full path name of the log file. File is created with permission 664 if it doesn't exist.
+# Log file should not be created in "/" file system. If cron is not able to create
+# the logfile name, it creates a log of its activities in /var/adm/cron/log file
+# and all the below features will be turned off.
+logfile={{ etc_cronlogconf.logfile | default ('/var/adm/cron/log')}}
+
+### size 
+# This keyword limits the size of a logfile. It is followed by a number and either
+# a k (kilobytes) or m(megabytes). The default and minimum size is 30K. If the size
+# value is invalid then rotation feature is turned off.
+size={{ etc_cronlogconf.size | default('30K') }}
+
+### rotate
+# This keyword specifies the total number of rotated files. It is followed by a number.
+# if a number is not specified then there are unlimited number of rotated files.
+# If keyword is not present then no rotation is done.
+# If specified, then minimum of number of rotated files is 2.
+rotate={{ etc_cronlogconf.rotate | default('2')}}
+
+### compress
+# This keyword specifies that the saved rotated files will be compressed.
+# If keyword is not present then no compression is done.
+{% if etc_cronlogconf.compress is defined and etc_cronlogconf.compress -%}
+compress{% else %}#compress
+{% endif %}
+
+### archive
+# This keyword specifies that the saved rotated files will be copied to a directory.
+# It is followed by the directory name. If archive is not specified and rotation is
+# valid then files are rotated in the directory of logfile.
+{% if etc_cronlogconf.archive is defined and etc_cronlogconf.archive -%}
+archive{% else %}#archive
+{% endif %}
+
+### quiet
+# This keyword specifies that cron logging will be disabled.
+{% if etc_cronlogconf.quiet is defined and etc_cronlogconf.quiet -%}
+quiet{% else %}#quiet
+{% endif -%}
